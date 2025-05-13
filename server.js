@@ -3,9 +3,18 @@ const axios = require('axios');
 const app = express();
 const connectDB = require("./Config/database");
 const User = require("./Models/user");
+const cors = require("cors");
+const http = require("http");
+const userRouter = require('./apis/user');
 
 // Middleware
 app.use(express.json());
+app.use(cors({
+  origin:"http://localhost:4200",
+  credentials: true,
+}));
+
+app.use("/", userRouter);
 
 // Sample route to hit LeadSquared API
 // app.post('/submit', async (req, res) => {
@@ -44,32 +53,7 @@ app.use(express.json());
 //   }
 // });
 // connecting to DB
-app.post("/signup", async (req,res) =>{
 
-  try{
-    const {firstName,lastName,emailId,password,age,phoneNumber,gender} = req.body;
-
-    const user = new User({
-      firstName,
-      lastName,
-      emailId,
-      password,
-      age,
-      phoneNumber,
-      gender
-    });
-
-    await user.save();
-    res.json({
-      message:"User added successfully",
-      data:user
-    });
-
-  }
-  catch(err){
-    console.error(err);
-  }
-})
 
 connectDB().
 then(()=>{
