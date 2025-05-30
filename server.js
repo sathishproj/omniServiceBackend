@@ -7,7 +7,7 @@ const cors = require("cors");
 const http = require("http");
 const userRouter = require('./apis/user');
 const specialtiesRouter = require('./apis/specialties');
-const doctorprofileRoute = require('./apis/doctordetails')
+const doctorRoutes = require('./apis/doctordetails');
 
 // Middleware
 app.use(express.json());
@@ -18,7 +18,7 @@ app.use(cors({
 
 app.use("/", userRouter);
 app.use("/", specialtiesRouter);
-app.use("/", doctorprofileRoute);
+app.use("/", doctorRoutes);
 
 // Sample route to hit LeadSquared API
 // app.post('/submit', async (req, res) => {
