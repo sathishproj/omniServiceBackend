@@ -8,9 +8,26 @@ const http = require("http");
 const userRouter = require('./apis/user');
 const specialtiesRouter = require('./apis/specialties');
 const doctorRoutes = require('./apis/doctordetails');
+const mailRoutes = require('./apis/mail');
+const bodyParser = require("body-parser");
+
+
+
 
 // Middleware
 app.use(express.json());
+
+app.use(cors());
+app.use(bodyParser.json()) // this will return a valid express middleware for parsing Json data.
+app.use(bodyParser.urlencoded({extended:false}))
+
+app.use((req,res,next)=>{
+    res.setHeader("Access-Control-Allow-Origin","*");
+    res.setHeader("Access-Control-Allow-Headers","Origin,X-Requested-With,Content-Type,Accept");
+    res.setHeader("Access-Control-Allow-Methods","GET,POST,PATCH,DELETE,OPTIONS")
+    next();
+})
+
 app.use(cors({
   origin:"http://localhost:4200",
   credentials: true,
@@ -19,54 +36,26 @@ app.use(cors({
 app.use("/", userRouter);
 app.use("/", specialtiesRouter);
 app.use("/", doctorRoutes);
+app.use("/",mailRoutes);
 
 // Sample route to hit LeadSquared API
 // app.post('/submit', async (req, res) => {
 //   console.log('Incoming Request Body:', req.body);
 
-//   const accessKey = 'u$r56afea08b32d556818ad1a5f69f0e7f0';
-//   function callingtesting(){
-    
-//   }
-//   const secretKey = '8d7f86d677dadaba209b4dead3cfcc4ab019031b';
-//   console.log(secretKey,'secretkey..');
-  
-//   return
-//   const apiUrl = `https://api-in21.leadsquared.com/v2/LeadManagement.svc/Lead.Capture?accessKey=${accessKey}&secretKey=${secretKey}`;
+// Connect to Database & Start Server
+const startServer = async () => {
+  try {
+    // await connectDB();
+    // console.log("✅ Database successfully connected");
 
-//   const postData = req.body;
+    app.listen(3000, () => {
+      console.log("🚀 Server is running on http://localhost:3000");
+    });
+  } catch (err) {
+    console.error("❌ Database connection failed", err);
+    process.exit(1); // Exit process if database fails to connect
+  }
+};
 
-//   try {
-//     const response = await axios.post(apiUrl, postData, {
-//       headers: {
-//         'Content-Type': 'application/json'
-//       }
-//     });
-
-//     console.log('LeadSquared API Response:', response.data);
-//     res.status(201).json({
-//       message: 'Lead submitted successfully',
-//       data: response.data
-//     });
-//   } catch (error) {
-//     console.error('LeadSquared API Error:', error.response ? error.response.data : error.message);
-//     res.status(500).json({
-//       message: 'Failed to submit lead',
-//       error: error.response ? error.response.data : error.message
-//     });
-//   }
-// });
-// connecting to DB
-
-
-connectDB().
-then(()=>{
-  console.log("Database successfully connected");
-  app.listen(3000, () => {
-  console.log('Server is running on http://localhost:3000');
-});
-
-}).
-catch((err)=>{
-  console.error("Database is not connected");
-})
+// Initialize Server
+startServer();
