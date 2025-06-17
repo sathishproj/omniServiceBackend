@@ -8,7 +8,8 @@ const healthpackagesSchema = new mongoose.Schema({
     description: String,
     image: String,
     location: String,
-    package_details: [String]
+    package_details: [String],
+    discount:Number
 });
 
 module.exports = mongoose.model('healthpackages', healthpackagesSchema);
