@@ -20,7 +20,6 @@ blogsRoute.post("/blogsdetails", async (req, res) => {
 });
 
 blogsRoute.get("/getblogdetails", async (req, res) => {
-    console.log(res, 'res');
     try {
         const blogs = await Blogs.find();
         res.json({
