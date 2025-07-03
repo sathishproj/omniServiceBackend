@@ -10,6 +10,7 @@ const doctorRoutes = require('./apis/doctordetails');
 const mailRoutes = require('./apis/mail');
 const healthpackage = require('./apis/healthpackages');
 const surgicalpackage = require('./apis/fixed_surgical_packages')
+const newsRouter = require('./apis/news');
 const app = express();
 
 // Middleware to parse JSON bodies
@@ -31,6 +32,7 @@ app.use('/', doctorRoutes);
 app.use('/', mailRoutes);
 app.use('/', healthpackage);
 app.use('/', surgicalpackage)
+app.use('/', newsRouter);
 // Start server
 const startServer = async () => {
   try {

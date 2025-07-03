@@ -3,7 +3,6 @@ const specialtyRouter = express.Router();
 const Specialty = require('../Models/Specialty.js');
 
 specialtyRouter.post("/speciality_details", async (req, res) => {
-  console.log(req.body, 'req body...');
   try {
     const specialties = new Specialty({
       name: 'Cardiology',

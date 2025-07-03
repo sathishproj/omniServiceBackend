@@ -6,10 +6,7 @@ const mailRouter = express.Router();
 // Configure multer for file uploads
 const storage = multer.memoryStorage(); // Store file in memory (buffer)
 const upload = multer({ storage });
-
 mailRouter.post('/send-email', upload.single('resume'), async (req, res) => {
-  console.log("Received body:", req.body);
-  console.log("Received file:", req.file);
 
   const { firstName, lastName, phone, email, position } = req.body;
 
