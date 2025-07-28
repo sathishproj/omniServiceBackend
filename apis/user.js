@@ -9,8 +9,8 @@ userRouter.post("/signup", async (req, res) => {
     const { fullName, emailId, phoneNumber, location, department, message } = req.body;
 
     // Split fullName into firstName and lastName
-    const nameParts = fullName.trim().split(" ");
-    const firstName = nameParts[0];
+    const nameParts = fullName?.trim().split(" ");
+    const firstName = nameParts?.[0] || "";
 
     const user = new User({
       firstName,

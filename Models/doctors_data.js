@@ -11,6 +11,9 @@ const doctorDetailsSchema = new mongoose.Schema({
   doctor_awards: String,
   doctor_availability: String,
   location: [String]
-}, { collection: 'doctorsData' }); // 👈 Fix this line!
+});
 
-module.exports = mongoose.model('Doctor', doctorDetailsSchema);
+doctorDetailsSchema.index({ location: 1});
+doctorDetailsSchema.index({ doctor_designation: 1 });
+
+module.exports = mongoose.model('doctorsData', doctorDetailsSchema);

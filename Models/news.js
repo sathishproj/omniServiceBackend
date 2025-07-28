@@ -1,4 +1,10 @@
 const mongoose = require('mongoose');
+
+const descriptionMixed = {
+    type: mongoose.Schema.Types.Mixed,
+    required: true
+};
+
 const newsSchema = new mongoose.Schema({
     title: {
         type: String,
@@ -8,10 +14,7 @@ const newsSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    description: {
-        type: String,
-        required: true
-    },
+    description: descriptionMixed,
     image: {
         type: String,
         required: false

@@ -22,7 +22,7 @@ newsRouter.get("/getnews", async (req, res) => {
     try {
         const newsData = await News.find();
         res.json({
-            message: "News fetched successfully",
+                message: "News fetched successfully",
             data: newsData
         });
     } catch (err) {

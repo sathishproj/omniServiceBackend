@@ -3,14 +3,17 @@
 const express = require('express');
 const cors = require('cors');
 const connectDB = require('./Config/database');
+const compression = require('compression'); //This reduces payload size and improves response time.
 
 const userRouter = require('./apis/user');
 const specialtiesRouter = require('./apis/specialties');
 const doctorRoutes = require('./apis/doctordetails');
+const doctorsnew = require('./apis/doctors_new')
 const mailRoutes = require('./apis/mail');
 const healthpackage = require('./apis/healthpackages');
 const surgicalpackage = require('./apis/fixed_surgical_packages')
 const newsRouter = require('./apis/news');
+const blogsRoute = require('./apis/blogsdetails');
 const app = express();
 
 // Middleware to parse JSON bodies
@@ -25,6 +28,9 @@ app.use(cors({
   credentials: true,
 }));
 
+//  improves response time.
+app.use(compression());
+
 // Register routes
 app.use('/', userRouter);
 app.use('/', specialtiesRouter);
@@ -33,6 +39,8 @@ app.use('/', mailRoutes);
 app.use('/', healthpackage);
 app.use('/', surgicalpackage)
 app.use('/', newsRouter);
+app.use('/', blogsRoute);
+app.use('/', doctorsnew);
 // Start server
 const startServer = async () => {
   try {
