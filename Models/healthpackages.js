@@ -8,6 +8,7 @@ const healthpackagesSchema = new mongoose.Schema({
     description: String,
     image: String,
     location: String,
+    faqs:[String],
     package_details: [String],
     discount:Number
 });
